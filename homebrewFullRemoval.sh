@@ -5,6 +5,7 @@ clear
 
 ## Functions To Remove Homebrew Packages/Apps ##
 function initialCleanup () {
+	echo "	 Initial Homebrew Cleanup "
 	rm -rf /usr/local/Cellar /usr/local/.git
 		if [ "$?" == "0" ]; then #error checking
 			echo "	 Success deleting Homebrew paths"
