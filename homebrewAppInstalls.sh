@@ -8,6 +8,17 @@ caskApps="firefox google-chrome flash platypus sequel-pro textmate textwrangler"
 
 
 ## Functions To Install Homebrew Packages/Apps ##
+
+function installCask () {
+	echo " Installing Homebrew Cask "
+	brew tap caskroom/cask
+		if [ "$?" == "0" ]; then #error checking
+	     	echo " Success installing Cask"
+		else
+	     	echo " ERROR - There was a problem with installing Cask"
+	     	exit "$?"
+		fi
+	}
 function installBrewPackages () {
 	echo " Installing Homebrew Packages "
 	for aPkg in $brewPkgs; do
@@ -23,11 +34,13 @@ function installBrewPackages () {
 	}
 function setCaskDock () {
 	echo " Adding Cask App folder to Dock "
+	CurrentUser=`/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }'`
+	touch "/Users/$CurrentUser/Applications"
 	dockutil --add '~/Applications' --view list --display folder --position 1
 		if [ "$?" == "0" ]; then #error checking
-	     	echo " Success added Cask App folder to Dock"
+	     	echo " Success added Cask App folder to Dock for $CurrentUser"
 		else
-	     	echo " ERROR - There was a problem with adding Cask App folder to Dock"
+	     	echo " ERROR - There was a problem with adding Cask App folder to Dock for $CurrentUser"
 	     	exit "$?"
 	 	fi
 	}
@@ -49,6 +62,7 @@ function installCaskApps () {
 
 ## Call the functions ##
 	installBrewPackages
+	installCask
 	setCaskDock
 	installCaskApps
 
