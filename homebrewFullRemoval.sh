@@ -1,19 +1,18 @@
 #!/bin/bash
 clear 
-# partial inspiriation:
-# http://digitizor.com/install-homebrew-osx-el-capitan/
+
 
 ## Functions To Remove Homebrew Packages/Apps ##
 function initialCleanup () {
 	echo "	 Initial Homebrew Cleanup "
-	rm -rf /usr/local/Cellar /usr/local/.git
-		if [ "$?" == "0" ]; then #error checking
-			echo "	 Success deleting Homebrew paths"
-		else
-		    echo "	 ERROR - There was a problem with deleting Homebrew paths"
-			exit "$?"
-		fi
-	brew cleanup
+	# rm -rf /usr/local/Cellar /usr/local/.git
+	# 	if [ "$?" == "0" ]; then #error checking
+	# 		echo "	 Success deleting Homebrew paths"
+	# 	else
+	# 	    echo "	 ERROR - There was a problem with deleting Homebrew paths"
+	# 		exit "$?"
+	# 	fi
+	brew cleanup && brew prune
 		if [ "$?" == "0" ]; then #error checking
 			echo "	 Success cleaning up with brew"
 		else

@@ -3,7 +3,7 @@ clear
 # set -x
 
 
-brewPkgs="coreutils caskroom/cask/brew-cask mtr screenfetch"
+brewPkgs="coreutils caskroom/cask/brew-cask mtr screenfetch dockutil"
 caskApps="firefox google-chrome flash platypus sequel-pro textmate textwrangler"
 
 
@@ -20,6 +20,16 @@ function installBrewPackages () {
 	     	exit "$?"
 		fi
 	done
+	}
+function setCaskDock () {
+	echo " Adding Cask App folder to Dock "
+	dockutil --add '~/Applications' --view list --display folder --position 1
+		if [ "$?" == "0" ]; then #error checking
+	     	echo " Success added Cask App folder to Dock"
+		else
+	     	echo " ERROR - There was a problem with adding Cask App folder to Dock"
+	     	exit "$?"
+	 	fi
 	}
 function installCaskApps () {
 	echo " Installing Homebrew Cask Apps "
@@ -39,5 +49,6 @@ function installCaskApps () {
 
 ## Call the functions ##
 	installBrewPackages
+	setCaskDock
 	installCaskApps
 
